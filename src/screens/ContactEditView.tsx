@@ -19,7 +19,7 @@ const ContactEditView = ({ navigation, route }: ContactEditViewProps) => {
   const [phone, setPhone] = useState(route.params.contact.phone);
 
   const save = async () => {
-    await Repository.getInstance().createOrUpdateContact({
+    await Repository.instance.createOrUpdateContact({
       groupKey: route.params.groupKey,
       contactKey: route.params.contact.key,
       firstName: firstName,

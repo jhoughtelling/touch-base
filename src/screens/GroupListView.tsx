@@ -14,7 +14,7 @@ type GroupListViewProps = {
 };
 
 const GroupListView = ({ navigation }: GroupListViewProps) => {
-  const [groups, setGroups] = useState(Repository.getInstance().groups());
+  const [groups, setGroups] = useState(Repository.instance.groups());
 
   useEffect(() => {
     navigation.setOptions({
@@ -26,7 +26,7 @@ const GroupListView = ({ navigation }: GroupListViewProps) => {
 
   useEffect(() => {
     const removeListener = navigation.addListener("focus", () => {
-      setGroups([...Repository.getInstance().groups()]);
+      setGroups([...Repository.instance.groups()]);
     });
     return () => {
       removeListener;
@@ -34,8 +34,8 @@ const GroupListView = ({ navigation }: GroupListViewProps) => {
   }, [navigation]);
 
   const handleDeleteGroup = async (group: Group) => {
-    await Repository.getInstance().deleteGroup(group.key);
-    setGroups([...Repository.getInstance().groups()]);
+    await Repository.instance.deleteGroup(group.key);
+    setGroups([...Repository.instance.groups()]);
   };
 
   return (

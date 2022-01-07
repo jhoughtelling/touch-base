@@ -18,7 +18,7 @@ type SelectGroupsViewProps = {
 const SelectGroupsView = ({ navigation, route }: SelectGroupsViewProps) => {
   type SelectableGroup = Group & { selected: boolean };
 
-  const allGroups = Repository.getInstance().groups();
+  const allGroups = Repository.instance.groups();
   const selectableGroups = allGroups.map((group) => ({ ...group, ...{ selected: false } }));
 
   const [groups, setGroups] = useState<SelectableGroup[]>(selectableGroups);

@@ -15,7 +15,7 @@ class Repository {
 
   private constructor() {}
 
-  public static getInstance(): Repository {
+  public static get instance(): Repository {
     if (!this._instance) {
       this._instance = new Repository();
     }

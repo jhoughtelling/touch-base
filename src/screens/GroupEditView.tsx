@@ -13,7 +13,7 @@ type GroupEditViewProps = {
 };
 
 const GroupEditView = ({ navigation, route }: GroupEditViewProps) => {
-  let repo = Repository.getInstance();
+  let repo = Repository.instance;
 
   const [name, setName] = useState(route.params.groupKey ? repo.getGroup(route.params.groupKey).name : "");
 

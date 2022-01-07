@@ -16,11 +16,11 @@ type GroupViewProps = {
 };
 
 const GroupView = ({ navigation, route }: GroupViewProps) => {
-  const group = Repository.getInstance().getGroup(route.params.groupKey);
+  const group = Repository.instance.getGroup(route.params.groupKey);
   const [contacts, setContacts] = useState(group.contacts);
 
   const handleDeleteContact = async (contact: Contact) => {
-    await Repository.getInstance().deleteContact(contact.key);
+    await Repository.instance.deleteContact(contact.key);
     setContacts([...group.contacts]);
   };
 
