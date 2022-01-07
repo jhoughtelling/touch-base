@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Group } from "../models/Group";
-import { sampleGroups } from "../SampleData";
+//import { sampleGroups } from "../SampleData";
 import Guid from "./Guid";
 import { UpdateableContact } from "../models/UpdateableContact";
 import { UpdateableGroup } from "../models/UpdateableGroup";
@@ -123,11 +123,11 @@ class Repository {
     return this._groups;
   }
 
-  public async initialize() {
-    if (!this._groups) {
+  public async initialize() { 
+    if (!this._groups) { 
       //Uncomment to reset to sample data...
-      this._groups = sampleGroups;
-      await this._save();
+      //this._groups = sampleGroups;
+      //await this._save();
 
       var json = await AsyncStorage.getItem("touch-base:groups");
       this._groups = json ? JSON.parse(json) : new Array<Group>();
