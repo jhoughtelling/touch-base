@@ -1,6 +1,6 @@
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Text, SafeAreaView, View, TextInput } from "react-native";
 import TextButton from "../components/TextButton";
 import { Contact } from "../models/Contact";
@@ -29,13 +29,18 @@ const ContactEditView = ({ navigation, route }: ContactEditViewProps) => {
     navigation.pop();
   };
 
+  const refFirstNameInput = useRef<TextInput>(null);
+  useEffect(() => refFirstNameInput.current?.focus(), []);
+
   return (
     <SafeAreaView style={globalStyles.container}>
       <View style={globalStyles.content}>
         <View style={globalStyles.textInputWrapper}>
           <Text style={globalStyles.label}>First name</Text>
           <TextInput
+            ref={refFirstNameInput}
             style={globalStyles.textInput}
+            selectTextOnFocus={true}
             onChangeText={setFirstName}
             value={firstName}
             textContentType="givenName"
@@ -45,6 +50,7 @@ const ContactEditView = ({ navigation, route }: ContactEditViewProps) => {
           <Text style={globalStyles.label}>Last name</Text>
           <TextInput
             style={globalStyles.textInput}
+            selectTextOnFocus={true}
             onChangeText={setLastName}
             value={lastName}
             textContentType="familyName"
@@ -54,6 +60,7 @@ const ContactEditView = ({ navigation, route }: ContactEditViewProps) => {
           <Text style={globalStyles.label}>Phone</Text>
           <TextInput
             style={globalStyles.textInput}
+            selectTextOnFocus={true}
             onChangeText={setPhone}
             value={phone}
             textContentType="telephoneNumber"
