@@ -3,7 +3,7 @@
     "name": "touch-base",
     "slug": "touch-base",
     "owner": "houghtelling",
-    "version": "2022.1.1",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

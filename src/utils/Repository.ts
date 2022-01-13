@@ -8,12 +8,15 @@ import { UpdateableGroup } from "../models/UpdateableGroup";
 class Repository {
   private static _instance: Repository;
   private _groups!: Group[];
+  private _resetSampleData: boolean;
 
   //-----------------------------------------------------------------------------------------------
   // Singleton
   //-----------------------------------------------------------------------------------------------
 
-  private constructor() {}
+  private constructor() {
+    this._resetSampleData = false;
+  }
 
   public static getInstance(): Repository {
     if (!this._instance) {
@@ -125,9 +128,10 @@ class Repository {
 
   public async initialize() {
     if (!this._groups) {
-      //Uncomment to reset to sample data...
-      this._groups = sampleGroups;
-      await this._save();
+      if (this._resetSampleData) {
+        this._groups = sampleGroups;
+        await this._save();
+      }
 
       var json = await AsyncStorage.getItem("touch-base:groups");
       this._groups = json ? JSON.parse(json) : new Array<Group>();

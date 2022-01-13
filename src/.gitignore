@@ -9,7 +9,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-SampleData.tsx
 
 # macOS
 .DS_Store
