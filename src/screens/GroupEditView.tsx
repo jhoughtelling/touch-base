@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SafeAreaView, Text, TextInput, View } from "react-native";
 import { StackParamList } from "../routes/GroupStack";
@@ -27,20 +27,17 @@ const GroupEditView = ({ navigation, route }: GroupEditViewProps) => {
     navigation.pop();
   };
 
-  const refNameInput = useRef<TextInput>(null);
-  useEffect(() => refNameInput.current?.focus(), []);
-
   return (
     <SafeAreaView style={globalStyles.container}>
       <View style={globalStyles.content}>
         <View style={globalStyles.textInputWrapper}>
           <Text style={globalStyles.label}>Group name</Text>
           <TextInput
-            ref={refNameInput}
             style={globalStyles.textInput}
             selectTextOnFocus={true}
             onChangeText={setName}
             value={name}
+            returnKeyType="done"
           />
         </View>
         <View style={globalStyles.buttonWrapper}>

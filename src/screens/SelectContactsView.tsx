@@ -46,10 +46,13 @@ const SelectContactsView = ({ navigation, route }: SelectContactsViewProps) => {
   };
 
   const updateMessageParams = (message: Readonly<string>, contact: Contact) => {
-    return message.replaceAll("@firstName", contact.firstName).replaceAll("@lastName", contact.lastName);
+    return message
+      .replaceAll("@firstName", contact.firstName)
+      .replaceAll("@lastName", contact.lastName)
+      .replaceAll("@nickName", contact.nickName ?? "");
   };
 
-  const sendMessage = async () => {    
+  const sendMessage = async () => {
     let available = await SMS.isAvailableAsync();
     if (available) {
       for (let i = 0; i < groups.length; i++) {
