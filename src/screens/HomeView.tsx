@@ -15,10 +15,8 @@ const HomeView = () => {
 
   useEffect(() => {
     (async () => {
-      await Repository.getInstance().initialize();
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 600);
+      await Repository.instance.initialize();
+      setIsLoaded(true);
     })();
   }, []);
 

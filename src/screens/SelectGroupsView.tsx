@@ -6,7 +6,6 @@ import { Text, SafeAreaView, View, FlatList, Pressable } from "react-native";
 import { Group } from "../models/Group";
 import { StackParamList } from "../routes/MessageStack";
 import { Constants, globalStyles } from "../styles/Global";
-import _ from "lodash";
 import HeaderButton from "../components/HeaderButton";
 import Repository from "../utils/Repository";
 
@@ -18,7 +17,7 @@ type SelectGroupsViewProps = {
 const SelectGroupsView = ({ navigation, route }: SelectGroupsViewProps) => {
   type SelectableGroup = Group & { selected: boolean };
 
-  const allGroups = Repository.getInstance().groups();
+  const allGroups = Repository.instance.groups();
   const selectableGroups = allGroups.map((group) => ({ ...group, ...{ selected: false } }));
 
   const [groups, setGroups] = useState<SelectableGroup[]>(selectableGroups);
@@ -30,7 +29,7 @@ const SelectGroupsView = ({ navigation, route }: SelectGroupsViewProps) => {
   const selectContacts = () => {
     navigation.navigate("SelectContacts", {
       message: route.params.message,
-      groups: _.filter(groups, "selected"),
+      groups: groups.filter(g => g.selected),
     });
   };
 

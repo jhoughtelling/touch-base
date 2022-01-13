@@ -18,7 +18,7 @@ class Repository {
     this._resetSampleData = false;
   }
 
-  public static getInstance(): Repository {
+  public static get instance(): Repository {
     if (!this._instance) {
       this._instance = new Repository();
     }

@@ -8,7 +8,6 @@ import { Group } from "../models/Group";
 import { StackParamList } from "../routes/MessageStack";
 import { Constants, globalStyles } from "../styles/Global";
 import { Contact } from "../models/Contact";
-import _ from "lodash";
 import HeaderButton from "../components/HeaderButton";
 
 type SelectContactsViewProps = {
@@ -35,9 +34,7 @@ const SelectContactsView = ({ navigation, route }: SelectContactsViewProps) => {
   const [groups, setGroups] = useState(sections);
 
   const toggleContactSelection = (contact: SelectableContact) => {
-    var tempData = _.clone(groups);
-
-    tempData.forEach((g) => {
+    groups.forEach((g) => {
       g.data.forEach((c) => {
         if (c.key == contact.key) {
           c.selected = !c.selected;
@@ -45,14 +42,14 @@ const SelectContactsView = ({ navigation, route }: SelectContactsViewProps) => {
       });
     });
 
-    setGroups(tempData);
+    setGroups([...groups]);
   };
 
   const updateMessageParams = (message: Readonly<string>, contact: Contact) => {
     return message.replaceAll("@firstName", contact.firstName).replaceAll("@lastName", contact.lastName);
   };
 
-  const sendMessage = async () => {
+  const sendMessage = async () => {    
     let available = await SMS.isAvailableAsync();
     if (available) {
       for (let i = 0; i < groups.length; i++) {
