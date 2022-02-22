@@ -1,11 +1,12 @@
-import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { globalBottomTabStyle } from "../styles/Global";
 import GroupStack from "../routes/GroupStack";
 import MessageStack from "../routes/MessageStack";
-import { globalBottomTabStyle } from "../styles/Global";
-import { Text, View } from "react-native";
+import AboutStack from "../routes/AboutStack";
 import Repository from "../utils/Repository";
 
 const Tab = createBottomTabNavigator();
@@ -37,6 +38,14 @@ const HomeView = () => {
           options={{
             headerShown: false,
             tabBarIcon: (props) => <Ionicons name="people" size={props.size} color={props.color} />,
+          }}
+        />
+        <Tab.Screen
+          name="About"
+          component={AboutStack}
+          options={{
+            headerShown: false,
+            tabBarIcon: (props) => <Ionicons name="settings" size={props.size} color={props.color} />,
           }}
         />
       </Tab.Navigator>
