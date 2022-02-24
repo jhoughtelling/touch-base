@@ -5,11 +5,12 @@ import ComposeMessageView from "../screens/ComposeMessageView";
 import SelectGroupsView from "../screens/SelectGroupsView";
 import SelectContactsView from "../screens/SelectContactsView";
 import { globalHeaderStyle } from "../styles/Global";
+import { Message } from "../models/Message";
 
 export type StackParamList = {
   ComposeMessage: {};
-  SelectGroups: { nextAction?(): void; message: string };
-  SelectContacts: { nextAction?(): void; message: string; groups: Group[] };
+  SelectGroups: { nextAction?(): void; message: Message };
+  SelectContacts: { nextAction?(): void; message: Message; groups: Group[] };
 };
 
 const Stack = createNativeStackNavigator<StackParamList>();

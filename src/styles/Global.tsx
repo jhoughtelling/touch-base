@@ -63,10 +63,12 @@ export const globalStyles = StyleSheet.create({
     borderColor: "#ddd",
     borderBottomWidth: 1,
     backgroundColor: "#fff",
+    alignItems: "center",
   },
   itemText: {
     fontSize: 16,
     width: "100%",
+    height: 22,
   },
   arrowButton: {
     fontSize: 18,

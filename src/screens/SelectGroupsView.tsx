@@ -8,10 +8,11 @@ import { StackParamList } from "../routes/MessageStack";
 import { Constants, globalStyles } from "../styles/Global";
 import HeaderButton from "../components/HeaderButton";
 import Repository from "../utils/Repository";
+import { Message } from "../models/Message";
 
 type SelectGroupsViewProps = {
   navigation: NativeStackNavigationProp<StackParamList, "SelectGroups">;
-  route: RouteProp<{ params: { nextAction(): void; message: string } }, "params">;
+  route: RouteProp<{ params: { nextAction(): void; message: Message } }, "params">;
 };
 
 const SelectGroupsView = ({ navigation, route }: SelectGroupsViewProps) => {
@@ -29,7 +30,7 @@ const SelectGroupsView = ({ navigation, route }: SelectGroupsViewProps) => {
   const selectContacts = () => {
     navigation.navigate("SelectContacts", {
       message: route.params.message,
-      groups: groups.filter(g => g.selected),
+      groups: groups.filter((g) => g.selected),
     });
   };
 
@@ -46,6 +47,7 @@ const SelectGroupsView = ({ navigation, route }: SelectGroupsViewProps) => {
           <Pressable onPress={() => toggleGroupSelection(item)}>
             <View style={globalStyles.item}>
               {item.selected && <Ionicons name="checkmark-circle-sharp" size={20} color={Constants.secondaryColor} />}
+              {!item.selected && <Text style={{ width: 20 }} />}
               <Text style={globalStyles.itemText}>&nbsp; {item.name}</Text>
             </View>
           </Pressable>

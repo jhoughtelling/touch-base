@@ -3,16 +3,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from "@react-navigation/native";
 import { Text, SafeAreaView, View, Pressable, SectionList } from "react-native";
-import * as SMS from "expo-sms";
 import { Group } from "../models/Group";
 import { StackParamList } from "../routes/MessageStack";
 import { Constants, globalStyles } from "../styles/Global";
 import { Contact } from "../models/Contact";
 import HeaderButton from "../components/HeaderButton";
+import { Message } from "../models/Message";
+import SMSProxy from "../utils/SMSProxy";
 
 type SelectContactsViewProps = {
   navigation: NativeStackNavigationProp<StackParamList, "SelectContacts">;
-  route: RouteProp<{ params: { message: string; groups: Group[] } }, "params">;
+  route: RouteProp<{ params: { message: Message; groups: Group[] } }, "params">;
 };
 
 const SelectContactsView = ({ navigation, route }: SelectContactsViewProps) => {
@@ -45,21 +46,15 @@ const SelectContactsView = ({ navigation, route }: SelectContactsViewProps) => {
     setGroups([...groups]);
   };
 
-  const updateMessageParams = (message: Readonly<string>, contact: Contact) => {
-    return message
-      .replaceAll("@firstName", contact.firstName)
-      .replaceAll("@lastName", contact.lastName)
-      .replaceAll("@nickName", contact.nickName ?? "");
-  };
-
   const sendMessage = async () => {
-    let available = await SMS.isAvailableAsync();
+    const smsProxy = new SMSProxy();
+
+    let available = await smsProxy.isSmSAvailableAsync();
     if (available) {
       for (let i = 0; i < groups.length; i++) {
         for (let j = 0; j < groups[i].data.length; j++) {
           if (groups[i].data[j].selected) {
-            const message = updateMessageParams(route.params.message, groups[i].data[j]);
-            await SMS.sendSMSAsync(groups[i].data[j].phone, message);
+            await smsProxy.sendMessageAsync(groups[i].data[j], route.params.message);
           }
         }
       }
@@ -85,6 +80,7 @@ const SelectContactsView = ({ navigation, route }: SelectContactsViewProps) => {
           <Pressable onPress={() => toggleContactSelection(item)}>
             <View style={globalStyles.item}>
               {item.selected && <Ionicons name="checkmark-circle-sharp" size={20} color={Constants.secondaryColor} />}
+              {!item.selected && <Text style={{ width: 20 }} />}
               <Text style={globalStyles.itemText}>
                 &nbsp; {item.lastName}, {item.firstName}
               </Text>
